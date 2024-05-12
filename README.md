@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 Sprint 3 Final Project: Around the U.S
 
 This is the project for sprint 3 at Triple Ten. It is an interactive page for users to add and remove photos, like photos of others and make adjustments to their own profile. To develop this website I have implemented the lessons that I learned in sprint 0, 1, 2 and 3. The main idea for this project is to implement responsive design using grids and media queries.
@@ -14,4 +12,3 @@ GitHub Pages Link to Project:
 https://vmpgonzalez.github.io/se_project_aroundtheus/
 
 Thanks
->>>>>>> 4479dfa (project3)
