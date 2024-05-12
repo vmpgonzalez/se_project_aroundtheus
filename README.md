@@ -10,5 +10,3 @@ Block Overflow implementation to hide text overflow using ellipsis.
 
 GitHub Pages Link to Project:
 https://vmpgonzalez.github.io/se_project_aroundtheus/
-
-Thanks
