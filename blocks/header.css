@@ -6,3 +6,9 @@
 .header__image {
   margin-bottom: 41px;
 }
+
+@media screen and (max-width: 595px) {
+  .header__image {
+    margin: 0 167px 32px 27px;
+  }
+}

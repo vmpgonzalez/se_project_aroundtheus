@@ -1,4 +1,4 @@
-.card__list {
+.cards__list {
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, 282px);
@@ -29,7 +29,6 @@
   padding-bottom: 25px;
   padding-left: 20px;
   align-items: center;
-  padding-left: 20px;
   padding-right: 20px;
   justify-content: space-between;
   border-bottom-left-radius: 10px;
@@ -41,6 +40,12 @@
   width: 21px;
   height: 18px;
   border: none;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.card__like-button:hover {
+  background: transparent url(../images/like-hover.svg) center no-repeat;
 }
 
 .card__text {
