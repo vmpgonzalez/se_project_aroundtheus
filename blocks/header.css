@@ -1,6 +1,7 @@
 .header {
+  margin: 0 auto;
   margin-top: 45px;
-  border-bottom: 1px solid #545454;
+  border-bottom: 1px solid rgba(84, 84, 84, 1);
 }
 
 .header__image {
@@ -10,5 +11,17 @@
 @media screen and (max-width: 595px) {
   .header__image {
     margin: 0 167px 32px 27px;
+    width: 126px;
+    height: 24px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    margin: 45px 0 0 0;
+  }
+
+  .cards {
+    margin-top: 36px;
   }
 }
