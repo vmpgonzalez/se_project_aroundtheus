@@ -12,4 +12,4 @@ GitHub Pages Link to Project:
 https://vmpgonzalez.github.io/se_project_aroundtheus/
 
 Overview Video Link:
-https://drive.google.com/file/d/1PYWgLwpfMShpkDKRTFYI5HWu1J-4BV_s/view?usp=drive_link
+https://drive.google.com/file/d/1PYWgLwpfMShpkDKRTFYI5HWu1J-4BV_s/view?usp=sharing
