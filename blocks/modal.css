@@ -11,9 +11,11 @@
   justify-content: center;
   padding-left: 19px;
   padding-right: 19px;
+  display: none;
 }
 
 .modal__opened {
+  display: flex;
 }
 
 .modal__container {
