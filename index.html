@@ -15,7 +15,7 @@
           class="header__image"
         />
       </header>
-      <main class="content">
+      <maioo class="content">
         <section class="profile page__section">
           <img
             src="./images/jacques-cousteau.jpg"
@@ -41,61 +41,81 @@
         <p class="footer__copyright">&copy; 2022 Around The U.S</p>
       </footer>
     </div>
-    <!--Edit Modal-->
-    <div class="modal" id="profile-edit-modal">
-      <div class="modal__container">
-        <button class="modal__close" id="profile-modal-close-button"></button>
-        <p class="modal__heading">Edit Profile</p>
-        <form class="modal__form">
+    <!--Edit popup-->
+    <div class="popup" id="profile-edit-popup">
+      <div class="popup__container">
+        <button
+          class="popup__close"
+          id="edit-profile-popup-close-button"
+        ></button>
+        <p class="popup__heading">Edit Profile</p>
+        <form class="popup__form" id="edit-profile-form">
           <input
-            class="modal__input"
+            class="popup__input"
             type="text"
             name="title"
             id="profile-title-input"
             placeholder="Name"
+            minlength="2"
+            maxlength="40"
+            required
           />
+          <span class="popup__error" id="profile-title-input-error"></span>
           <input
-            class="modal__input"
+            class="popup__input"
             type="text"
             name="description"
             id="profile-description-input"
             placeholder="Description"
+            minlength="2"
+            maxlength="200"
+            required
           />
-          <button class="modal__button">Save</button>
+          <span
+            class="popup__error"
+            id="profile-description-input-error"
+          ></span>
+          <button class="popup__button">Save</button>
         </form>
       </div>
     </div>
-    <!--Add card modal-->
-    <div class="modal" id="profile-add-modal">
-      <div class="modal__container">
-        <button class="modal__close" id="profile-modal-close-button"></button>
-        <p class="modal__heading">New Place</p>
-        <form class="modal__form" id="add-card-form">
+    <!--Add card popup-->
+    <div class="popup" id="profile-add-popup">
+      <div class="popup__container">
+        <button class="popup__close" id="add-card-popup-close-button"></button>
+        <p class="popup__heading">New Place</p>
+        <form class="popup__form" id="add-card-form">
           <input
-            class="modal__input modal__input_type_title"
+            class="popup__input popup__input_type_title"
             type="text"
             name="title"
-            id="profile-title-input"
+            id="add-card-title-input"
             placeholder="Title"
+            minlength="1"
+            maxlength="30"
+            required
           />
+          <span class="popup__error" id="add-card-title-input-error"></span>
           <input
-            class="modal__input modal__input_type_url"
-            type="text"
+            class="popup__input popup__input_type_url"
+            type="url"
             name="description"
-            id="profile-description-input"
+            id="add-card-url-input"
             placeholder="Image link"
+            required
           />
-          <button class="modal__button">Create</button>
+          <span class="popup__error" id="add-card-url-input-error"></span>
+          <button class="popup__button" type="submit">Create</button>
         </form>
       </div>
     </div>
-    <div class="modal js-preview-popup">
-      <div class="modal__container modal__container_type_preview">
+    <div class="popup js-preview-popup">
+      <div class="popup__container popup__container_type_preview">
         <button
-          class="modal__close modal__container-close-button"
-          id="profile-modal-close-button"
+          class="popup__close popup__container-close-button"
+          id="preview-image-popup-close-button"
         ></button>
-        <img class="popup__preview-image" src="" alt="" />
+        <img class="popup__preview-image" />
         <p class="popup__preview-title"></p>
       </div>
     </div>
@@ -109,7 +129,7 @@
         </div>
       </li>
     </template>
-
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validation.js"></script>
   </body>
 </html>

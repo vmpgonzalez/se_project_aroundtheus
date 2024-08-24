@@ -1,6 +1,6 @@
-Sprint 3 Final Project: Around the U.S
+Around the U.S Prooject
 
-This is the project for sprint 3 at Triple Ten. It is an interactive page for users to add and remove photos, like photos of others and make adjustments to their own profile. To develop this website I have implemented the lessons that I learned in sprint 0, 1, 2 and 3. The main idea for this project is to implement responsive design using grids and media queries.
+This project is an interactive webpage it was designed to showcase six images. This website features a user profile section where they can edit their name and add a brief description. I used HTML to code the structure of the webpage and CSS for styling as well as Javascript for user interactions and form validation. Users can interact with the webpage by liking images, editing images, and previewing images. Popups with smooth transitions were used to help the user edit their profile info, add new images, and previewing images thus making it a more enjoyable experience.
 
 Desktop and Mobile Design.
 (https://practicum-content.s3.amazonaws.com/resources/P3_Desktop__Mob_1688718911.png)
