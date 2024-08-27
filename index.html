@@ -50,6 +50,7 @@
         ></button>
         <p class="popup__heading">Edit Profile</p>
         <form class="popup__form" id="edit-profile-form">
+          <label class="popup__label">
           <input
             class="popup__input"
             type="text"
@@ -61,6 +62,8 @@
             required
           />
           <span class="popup__error" id="profile-title-input-error"></span>
+          </label>
+          <label class="popup__label">
           <input
             class="popup__input"
             type="text"
@@ -75,6 +78,7 @@
             class="popup__error"
             id="profile-description-input-error"
           ></span>
+          </label>
           <button class="popup__button">Save</button>
         </form>
       </div>
@@ -85,6 +89,7 @@
         <button class="popup__close" id="add-card-popup-close-button"></button>
         <p class="popup__heading">New Place</p>
         <form class="popup__form" id="add-card-form">
+          <label class="popup__label">
           <input
             class="popup__input popup__input_type_title"
             type="text"
@@ -96,6 +101,8 @@
             required
           />
           <span class="popup__error" id="add-card-title-input-error"></span>
+          </label>
+          <label class="popup__label">
           <input
             class="popup__input popup__input_type_url"
             type="url"
@@ -105,6 +112,7 @@
             required
           />
           <span class="popup__error" id="add-card-url-input-error"></span>
+          </label>
           <button class="popup__button" type="submit">Create</button>
         </form>
       </div>
