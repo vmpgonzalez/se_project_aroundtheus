@@ -75,6 +75,9 @@ const addNewCardButton = document.querySelector(".profile__add-button");
 
 const popups = document.querySelectorAll(".popup");
 
+
+let addCardFormValidator;
+
 /* Functions */
 // Open popup
 function openPopup(popup) {
@@ -111,8 +114,14 @@ function handleAddCardFormSubmit(e) {
   e.preventDefault();
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
+
+  // Render the new card
   renderCard({ name, link }, cardListEL);
+
+  // Reset the form and validation state
   e.target.reset();
+  addCardFormValidator.resetValidation();
+
   closePopup(addCardPopup);
 }
 
@@ -131,7 +140,10 @@ profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 
 // Open add card popup
-addNewCardButton.addEventListener("click", () => openPopup(addCardPopup));
+addNewCardButton.addEventListener("click", () => {
+  addCardFormValidator.resetValidation(); // Reset validation state
+  openPopup(addCardPopup);
+});
 
 // Close popups when clicking outside of them
 popups.forEach((popup) => {
@@ -145,6 +157,7 @@ popups.forEach((popup) => {
   });
 });
 
+// Validation settings
 const validationSettings = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -154,11 +167,16 @@ const validationSettings = {
   errorClass: "popup__error_visible",
 };
 
+// Initialize form validators
 document.addEventListener("DOMContentLoaded", () => {
   const forms = document.querySelectorAll(validationSettings.formSelector);
   forms.forEach((formElement) => {
     const formValidator = new FormValidator(validationSettings, formElement);
     formValidator.enableValidation();
+    // Special handling for the add card form
+    if (formElement === addCardFormElement) {
+      addCardFormValidator = formValidator;
+    }
   });
 });
 
