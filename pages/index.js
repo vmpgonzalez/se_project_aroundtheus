@@ -9,10 +9,16 @@ function handleImageClick(cardData) {
   openPopup(previewImagePopupWindow);
 }
 
-// Render card
-function renderCard(cardData, wrapper) {
+// Function to create a new card
+function createCard(cardData) {
   const card = new Card(cardData, "#card-template", handleImageClick);
-  wrapper.prepend(card.generateCard());
+  return card.generateCard();
+}
+
+// Function to render a card
+function renderCard(cardData, wrapper) {
+  const cardElement = createCard(cardData);
+  wrapper.prepend(cardElement);
 }
 
 /* Initial Cards Data */
@@ -52,11 +58,6 @@ const previewImagePopupWindow = document.querySelector(".js-preview-popup");
 const previewImageElement = document.querySelector(".popup__preview-image");
 const previewImageCaption = document.querySelector(".popup__preview-title");
 
-const profilePopupCloseButton = profileEditPopup.querySelector(".popup__close");
-const addCardPopupCloseButton = addCardPopup.querySelector(".popup__close");
-const previewImageCloseButton =
-  previewImagePopupWindow.querySelector(".popup__close");
-
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -74,7 +75,6 @@ const cardListEL = document.querySelector(".cards__list");
 const addNewCardButton = document.querySelector(".profile__add-button");
 
 const popups = document.querySelectorAll(".popup");
-
 
 let addCardFormValidator;
 
@@ -120,7 +120,7 @@ function handleAddCardFormSubmit(e) {
 
   // Reset the form and validation state
   e.target.reset();
-  addCardFormValidator.resetValidation();
+  addCardFormValidator.disableButton();
 
   closePopup(addCardPopup);
 }
@@ -141,7 +141,6 @@ addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 
 // Open add card popup
 addNewCardButton.addEventListener("click", () => {
-  addCardFormValidator.resetValidation(); // Reset validation state
   openPopup(addCardPopup);
 });
 
@@ -173,7 +172,6 @@ document.addEventListener("DOMContentLoaded", () => {
   forms.forEach((formElement) => {
     const formValidator = new FormValidator(validationSettings, formElement);
     formValidator.enableValidation();
-    // Special handling for the add card form
     if (formElement === addCardFormElement) {
       addCardFormValidator = formValidator;
     }
@@ -182,3 +180,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Render initial cards
 initialCards.forEach((cardData) => renderCard(cardData, cardListEL));
+4;
