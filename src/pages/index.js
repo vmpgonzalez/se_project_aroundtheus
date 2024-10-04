@@ -1,12 +1,12 @@
-// Import necessary classes and constants
+// Imports
 import { FormValidator } from "../components/FormValidator.js";
 import { Card } from "../components/Card.js";
 import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
-import { initialCards, validationSettings } from "../utils/constants.js"; // Import constants
-import "../pages/index.css"; // Import styles
+import { initialCards, validationSettings } from "../utils/constants.js";
+import "../pages/index.css";
 
 // Select DOM elements
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -19,7 +19,7 @@ const profileDescriptionInput = document.querySelector(
 );
 const addNewCardButton = document.querySelector(".profile__add-button");
 
-// Create instances
+// Instances
 const section = new Section(
   { items: initialCards, renderer: createCard },
   ".cards__list"
@@ -42,7 +42,7 @@ const addCardPopup = new PopupWithForm(
 
 const imagePopup = new PopupWithImage(".js-preview-popup");
 
-// Set event listeners for popups
+// Event listeners for popups
 profileEditPopup.setEventListeners();
 addCardPopup.setEventListeners();
 imagePopup.setEventListeners();
@@ -59,8 +59,7 @@ function createCard(cardData) {
 }
 
 // Handle profile edit form submission
-function handleProfileEditSubmit(e) {
-  e.preventDefault();
+function handleProfileEditSubmit() {
   const newUserInfo = {
     name: profileTitleInput.value,
     job: profileDescriptionInput.value,

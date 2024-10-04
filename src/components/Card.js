@@ -1,16 +1,16 @@
 export class Card {
   // Constructor to initialize card data and elements
   constructor(data, cardSelector, handleImageClick) {
-    this._data = data; // Card data
-    this._cardSelector = cardSelector; // Card template selector
-    this._handleImageClick = handleImageClick; // Function to handle image clicks
-    this._cardElement = this._getTemplate(); // Card element created from template
-    this._cardImageEl = this._cardElement.querySelector(".card__image"); // Image element
-    this._likeButton = this._cardElement.querySelector(".card__like-button"); // Like button element
+    this._data = data;
+    this._cardSelector = cardSelector;
+    this._handleImageClick = handleImageClick;
+    this._cardElement = this._getTemplate();
+    this._cardImageEl = this._cardElement.querySelector(".card__image");
+    this._likeButton = this._cardElement.querySelector(".card__like-button");
     this._deleteButton = this._cardElement.querySelector(
       ".card__delete-button"
-    ); // Delete button element
-    this._cardTextEl = this._cardElement.querySelector(".card__text"); // Text element
+    );
+    this._cardTextEl = this._cardElement.querySelector(".card__text");
   }
 
   // Method to get the card template from the DOM
@@ -18,32 +18,32 @@ export class Card {
     const cardTemplate = document
       .querySelector(this._cardSelector)
       .content.querySelector(".card");
-    return cardTemplate.cloneNode(true); // Clone the template
+    return cardTemplate.cloneNode(true);
   }
 
   // Method to set up event listeners for card interactions
   _setEventListeners() {
     this._cardImageEl.addEventListener("click", () => {
-      this._handleImageClick(this._data); // Handle image click
+      this._handleImageClick(this._data);
     });
 
     this._likeButton.addEventListener("click", () => {
-      this._likeButton.classList.toggle("card__like-button_active"); // Toggle like state
+      this._likeButton.classList.toggle("card__like-button_active");
     });
 
     this._deleteButton.addEventListener("click", () => {
-      this._cardElement.remove(); // Remove card from DOM
+      this._cardElement.remove();
     });
   }
 
   // Method to generate the card with data and set up listeners
   generateCard() {
-    this._cardImageEl.src = this._data.link; // Set image source
-    this._cardImageEl.alt = this._data.name; // Set image alt text
-    this._cardTextEl.textContent = this._data.name; // Set card text
+    this._cardImageEl.src = this._data.link;
+    this._cardImageEl.alt = this._data.name;
+    this._cardTextEl.textContent = this._data.name;
 
-    this._setEventListeners(); // Initialize event listeners
+    this._setEventListeners();
 
-    return this._cardElement; // Return the fully constructed card
+    return this._cardElement;
   }
 }
