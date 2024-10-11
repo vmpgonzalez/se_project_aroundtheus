@@ -59,13 +59,11 @@ function createCard(cardData) {
 }
 
 // Handle profile edit form submission
-function handleProfileEditSubmit() {
-  const newUserInfo = {
-    name: profileTitleInput.value,
-    job: profileDescriptionInput.value,
-  };
-  userInfo.setUserInfo(newUserInfo);
-  profileEditPopup.close();
+function handleProfileEditSubmit(data) {
+  userInfo.setUserInfo({
+    name: data.title || "",
+    job: data.description || "",
+  });
 }
 
 // Handle add card form submission
@@ -77,11 +75,17 @@ function handleAddCardFormSubmit(data) {
 // Event listeners for buttons
 profileEditButton.addEventListener("click", () => {
   const currentUserInfo = userInfo.getUserInfo();
-  profileTitleInput.value = currentUserInfo.name;
-  profileDescriptionInput.value = currentUserInfo.job;
   profileEditPopup.open();
-});
 
+  // Set input values after opening the popup
+  profileEditPopup.inputList.forEach((input) => {
+    if (input.name === "title") {
+      input.value = currentUserInfo.name || "";
+    } else if (input.name === "description") {
+      input.value = currentUserInfo.job || "";
+    }
+  });
+});
 addNewCardButton.addEventListener("click", () => {
   addCardPopup.open();
 });

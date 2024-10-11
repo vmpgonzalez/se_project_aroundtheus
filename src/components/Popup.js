@@ -27,10 +27,12 @@ export class Popup {
   // Public method to set event listeners for the close button and overlay click
   setEventListeners() {
     const closeButton = this.popup.querySelector(".popup__close");
-    closeButton.addEventListener("click", () => this.close());
+    if (closeButton) {
+      closeButton.addEventListener("click", () => this.close());
+    }
 
-    // Close popup when clicking on the overlay (outside the popup content)
-    this.popup.addEventListener("mousedown", (evt) => {
+    // Close popup when clicking on the overlay (outside the popup)
+    this.popup.addEventListener("pointerdown", (evt) => {
       if (evt.target === this.popup) {
         this.close();
       }
