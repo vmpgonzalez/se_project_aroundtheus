@@ -1,5 +1,4 @@
 export class FormValidator {
-  // Constructor to initialize validation settings and form elements
   constructor(settings, formElement) {
     this._settings = settings;
     this._formElement = formElement;
