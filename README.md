@@ -1,15 +1,33 @@
-Around the U.S Project
+# Around the U.S Project
 
-This project is an interactive webpage it was designed to showcase six images. This website features a user profile section where they can edit their name and add a brief description. I used HTML to code the structure of the webpage and CSS for styling as well as Javascript for user interactions and form validation. Users can interact with the webpage by liking images, editing images, and previewing images. Popups with smooth transitions were used to help the user edit their profile info, add new images, and previewing images thus making it a more enjoyable experience.
+**Project Overview:**
 
-Desktop and Mobile Design.
-(https://practicum-content.s3.amazonaws.com/resources/P3_Desktop__Mob_1688718911.png)
+The "Around the U.S" project is an interactive web application designed to showcase six stunning images representing various locations across the United States. The webpage includes a user profile section, allowing users to edit their name and provide a brief description of themselves.
 
-Block Overflow implementation to hide text overflow using ellipsis.
-(https://practicum-content.s3.amazonaws.com/resources/MAIN_PAGE_1688719251.png)
+**Technologies Used:**
 
-GitHub Pages Link to Project:
-https://vmpgonzalez.github.io/se_project_aroundtheus/
+- **HTML**: Used to structure the webpage, ensuring semantic and accessible content.
+- **CSS**: Employed for styling and responsive design to enhance user experience on both desktop and mobile devices.
+- **JavaScript**: Implemented for dynamic user interactions, including form validation and managing image-related features.
 
-Overview Video Link:
-https://drive.google.com/file/d/1PYWgLwpfMShpkDKRTFYI5HWu1J-4BV_s/view?usp=sharing
+**Key Features:**
+
+- Users can like images, edit their profiles, and preview images in a dedicated popup.
+- Smooth transitions are incorporated into the popup functionalities, enhancing the user experience while editing profile information, adding new images, and viewing them.
+
+**Responsive Design:**
+
+The project has been developed to provide an optimal viewing experience across various devices, with a focus on both desktop and mobile layouts.
+
+[Desktop and Mobile Design](https://practicum-content.s3.amazonaws.com/resources/P3_Desktop__Mob_1688718911.png)
+
+**Block Overflow Implementation:**
+
+Text overflow is handled using ellipsis for a clean and professional look, ensuring that user interface elements remain visually appealing.
+
+[Block Overflow Implementation](https://practicum-content.s3.amazonaws.com/resources/MAIN_PAGE_1688719251.png)
+
+**Links:**
+
+- **GitHub Pages**: [View Project](https://vmpgonzalez.github.io/se_project_aroundtheus/)
+- **Overview Video**: [Watch Video](https://drive.google.com/file/d/1PYWgLwpfMShpkDKRTFYI5HWu1J-4BV_s/view?usp=sharing)

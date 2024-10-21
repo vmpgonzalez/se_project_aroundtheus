@@ -5,7 +5,7 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
-import { initialCards, validationSettings } from "../utils/constants.js";
+import { initialCards, validationSettings } from "../utils/utils.js";
 import "../pages/index.css";
 
 // Select DOM elements
@@ -20,31 +20,42 @@ const profileDescriptionInput = document.querySelector(
 const addNewCardButton = document.querySelector(".profile__add-button");
 
 // Instances
-const section = new Section(
-  { items: initialCards, renderer: createCard },
-  ".cards__list"
-);
-
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   jobSelector: ".profile__description",
 });
 
+// Initialize the form validators for each popup form
+const profileEditFormValidator = new FormValidator(
+  validationSettings,
+  document.querySelector("#profile-edit-popup .popup__form")
+);
+profileEditFormValidator.enableValidation();
+
+const addCardFormValidator = new FormValidator(
+  validationSettings,
+  document.querySelector("#profile-add-popup .popup__form")
+);
+addCardFormValidator.enableValidation();
+
+// Initialize PopupWithForm for editing profile
 const profileEditPopup = new PopupWithForm(
   "#profile-edit-popup",
-  handleProfileEditSubmit
+  handleProfileEditSubmit,
+  profileEditFormValidator
 );
+profileEditPopup.setEventListeners();
 
+// Initialize PopupWithForm for adding new cards
 const addCardPopup = new PopupWithForm(
   "#profile-add-popup",
-  handleAddCardFormSubmit
+  handleAddCardFormSubmit,
+  addCardFormValidator
 );
-
-const imagePopup = new PopupWithImage(".js-preview-popup");
-
-// Event listeners for popups
-profileEditPopup.setEventListeners();
 addCardPopup.setEventListeners();
+
+// Initialize PopupWithImage for previewing images
+const imagePopup = new PopupWithImage(".js-preview-popup");
 imagePopup.setEventListeners();
 
 // Function to handle image clicks
@@ -57,6 +68,12 @@ function createCard(cardData) {
   const card = new Card(cardData, "#card-template", handleImageClick);
   return card.generateCard();
 }
+
+// Section instance to render cards
+const section = new Section(
+  { items: initialCards, renderer: createCard },
+  ".cards__list"
+);
 
 // Handle profile edit form submission
 function handleProfileEditSubmit(data) {
@@ -86,17 +103,9 @@ profileEditButton.addEventListener("click", () => {
     }
   });
 });
+
 addNewCardButton.addEventListener("click", () => {
   addCardPopup.open();
-});
-
-// Initialize form validators
-document.addEventListener("DOMContentLoaded", () => {
-  const forms = document.querySelectorAll(validationSettings.formSelector);
-  forms.forEach((formElement) => {
-    const formValidator = new FormValidator(validationSettings, formElement);
-    formValidator.enableValidation();
-  });
 });
 
 // Render initial cards
