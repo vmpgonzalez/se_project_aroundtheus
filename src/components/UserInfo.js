@@ -1,21 +1,28 @@
 export class UserInfo {
-  // Constructor to initialize user info elements
-  constructor({ nameSelector, jobSelector }) {
-    this.nameElement = document.querySelector(nameSelector);
-    this.jobElement = document.querySelector(jobSelector);
+  constructor({ nameSelector, jobSelector, avatarSelector }) {
+    this._nameElement = document.querySelector(nameSelector);
+    this._jobElement = document.querySelector(jobSelector);
+    this._avatarElement = document.querySelector(avatarSelector);
+    this._userId = null;
   }
 
-  // Public method to get user info
+  setUserInfo({ name, job, avatar, _id }) {
+    if (name) this._nameElement.textContent = name;
+    if (job) this._jobElement.textContent = job;
+    if (avatar) this._avatarElement.src = avatar;
+    if (_id) {
+      this._userId = _id;
+    } else {
+      console.warn("User ID (_id) is undefined. Skipping userId update.");
+    }
+  }
+
   getUserInfo() {
     return {
-      name: this.nameElement.textContent,
-      job: this.jobElement.textContent,
+      name: this._nameElement.textContent,
+      job: this._jobElement.textContent,
+      avatar: this._avatarElement.src,
+      _id: this._userId,
     };
-  }
-
-  // Public method to set user info
-  setUserInfo({ name, job }) {
-    this.nameElement.textContent = name;
-    this.jobElement.textContent = job;
   }
 }

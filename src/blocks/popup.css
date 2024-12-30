@@ -1,4 +1,4 @@
-/* Popup Block */
+/* Popup Base */
 .popup {
   position: fixed;
   top: 0;
@@ -16,7 +16,6 @@
   opacity: 0;
   transition: visibility 0s linear 0.3s, opacity 0.3s linear;
 }
-
 .popup_opened {
   visibility: visible;
   pointer-events: all;
@@ -24,14 +23,13 @@
   transition-delay: 0s;
 }
 
-/* Popup Container */
+/* Container & Preview */
 .popup__container {
   position: relative;
   background-color: white;
   padding: 36px;
   border-radius: 10px;
 }
-
 .popup__container_type_preview {
   background: transparent;
   max-width: 75vw;
@@ -41,8 +39,6 @@
   display: flex;
   padding: 0;
 }
-
-/* Popup Preview */
 .popup__preview-title {
   position: absolute;
   top: calc(100% + 5px);
@@ -53,13 +49,12 @@
   text-align: left;
   margin-top: 10px;
 }
-
 .popup__preview-image {
   max-width: 75vw;
   max-height: 75vh;
 }
 
-/* Popup Close Button */
+/* Close Button */
 .popup__close {
   position: absolute;
   bottom: calc(100% + 5px);
@@ -75,22 +70,19 @@
   transition: opacity 0.3s ease-in-out;
   padding: 0;
 }
-
 #add-card-popup-close-button {
   bottom: calc(100% + 5px);
   left: calc(100% + 5px);
 }
-
 #edit-profile-popup-close-button {
   bottom: calc(100% + 5px);
   left: calc(100% + 5px);
 }
-
 .popup__close:hover {
   opacity: 0.6;
 }
 
-/* Popup Heading */
+/* Heading */
 .popup__heading {
   color: black;
   font-family: "Inter";
@@ -101,15 +93,13 @@
   margin: 0 0 54px 0;
 }
 
-/* Popup Form */
+/* Form & Inputs */
 .popup__form {
   display: flex;
   flex-direction: column;
   margin: 0;
   width: 358px;
 }
-
-/* Popup Input */
 .popup__input {
   margin-bottom: 40px;
   padding-bottom: 13px;
@@ -121,22 +111,19 @@
   line-height: 16.94px;
   height: 14px;
 }
-
 .popup__label {
   position: relative;
   display: flex;
   flex-direction: column-reverse;
 }
-
 #add-card-url-input {
   margin-bottom: 45px;
 }
-
 .popup__input:focus {
   outline: none;
 }
 
-/* Popup Error */
+/* Errors & Buttons */
 .popup__error {
   position: absolute;
   color: red;
@@ -146,12 +133,9 @@
   line-height: 14.52px;
   top: 35px;
 }
-
 .popup__error_visible {
   border-bottom: 1px solid rgba(255, 0, 0, 1);
 }
-
-/* Popup Button */
 .popup__button {
   width: 358px;
   height: 50.15px;
@@ -165,15 +149,37 @@
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
 }
-
 .popup__button:hover {
   opacity: 0.8;
 }
-
 .popup__button:disabled {
   background-color: #fff;
   color: #c4c4c4;
   pointer-events: none;
+}
+
+/* Delete & Avatar Styles */
+#delete-card-popup .popup__title {
+  font-size: 18px;
+  text-align: center;
+}
+#delete-card-popup .popup__button_type_delete {
+  background-color: #000;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#delete-card-popup .popup__button_type_delete:hover {
+  background-color: black;
+}
+#edit-avatar-popup .popup__title {
+  font-size: 18px;
+  text-align: center;
+}
+#edit-avatar-popup .popup__button:hover {
+  background-color: black;
 }
 
 /* Media Queries */
@@ -181,43 +187,35 @@
   .popup__container {
     padding: 25px 22px;
   }
-
   .popup__close {
     width: 26px;
     height: 26px;
     left: calc(100% - 45px);
     bottom: calc(100% - 20px);
   }
-
   .popup__heading {
     width: 238px;
     height: 22px;
     font-size: 18px;
     margin: 0 0 75px 0;
   }
-
   .popup__form {
     width: 238px;
   }
-
   .popup__button {
     font-size: 14px;
     width: 238px;
     height: 48px;
   }
-
   .popup__input {
     margin-bottom: 55px;
   }
-
   .popup__preview-title {
     top: calc(100% - 20px);
   }
-
   #add-card-popup-close-button {
     left: calc(100% - 27px);
   }
-
   #edit-profile-popup-close-button {
     left: calc(100% - 27px);
   }

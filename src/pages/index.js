@@ -1,31 +1,44 @@
-// Imports
 import { FormValidator } from "../components/FormValidator.js";
 import { Card } from "../components/Card.js";
 import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
-import { initialCards, validationSettings } from "../utils/utils.js";
+import { validationSettings } from "../utils/utils.js";
+import { Api } from "../components/Api.js";
+import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
 import "../pages/index.css";
 
-// Select DOM elements
+// Instances
+const deleteCardPopup = new PopupWithConfirmation("#delete-card-popup");
+deleteCardPopup.setEventListeners();
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "61ecb13e-4f99-4418-af88-5f3fba3801df",
+    "Content-Type": "application/json",
+  },
+});
+
+// DOM elements
 const profileEditButton = document.querySelector("#profile-edit-button");
-const addCardFormElement = document.querySelector(
-  "#profile-add-popup .popup__form"
-);
 const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 const addNewCardButton = document.querySelector(".profile__add-button");
+const avatarEditButton = document.querySelector(".profile__avatar-edit-icon");
+const avatarForm = document.querySelector("#avatar-edit-form");
 
-// Instances
+// User info
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   jobSelector: ".profile__description",
+  avatarSelector: ".profile__image",
 });
 
-// Initialize the form validators for each popup form
+// Form validators
 const profileEditFormValidator = new FormValidator(
   validationSettings,
   document.querySelector("#profile-edit-popup .popup__form")
@@ -38,7 +51,10 @@ const addCardFormValidator = new FormValidator(
 );
 addCardFormValidator.enableValidation();
 
-// Initialize PopupWithForm for editing profile
+const avatarFormValidator = new FormValidator(validationSettings, avatarForm);
+avatarFormValidator.enableValidation();
+
+// Popups
 const profileEditPopup = new PopupWithForm(
   "#profile-edit-popup",
   handleProfileEditSubmit,
@@ -46,7 +62,6 @@ const profileEditPopup = new PopupWithForm(
 );
 profileEditPopup.setEventListeners();
 
-// Initialize PopupWithForm for adding new cards
 const addCardPopup = new PopupWithForm(
   "#profile-add-popup",
   handleAddCardFormSubmit,
@@ -54,59 +69,141 @@ const addCardPopup = new PopupWithForm(
 );
 addCardPopup.setEventListeners();
 
-// Initialize PopupWithImage for previewing images
 const imagePopup = new PopupWithImage(".js-preview-popup");
 imagePopup.setEventListeners();
 
-// Function to handle image clicks
+const avatarPopup = new PopupWithForm(
+  "#edit-avatar-popup",
+  handleAvatarFormSubmit,
+  avatarFormValidator
+);
+avatarPopup.setEventListeners();
+
+// Functions
 function handleImageClick(cardData) {
   imagePopup.open(cardData);
 }
 
-// Function to create a new card
 function createCard(cardData) {
-  const card = new Card(cardData, "#card-template", handleImageClick);
+  const card = new Card(
+    { ...cardData, currentUserId: userInfo.getUserInfo()._id },
+    "#card-template",
+    handleImageClick,
+    {
+      handleLikeClick: (cardId) => {
+        const likePromise = cardData.isLiked
+          ? api.dislikeCard(cardId)
+          : api.likeCard(cardId);
+        likePromise
+          .then((updatedCard) => {
+            card.updateLikes(updatedCard.isLiked);
+          })
+          .catch((err) => {
+            console.error("Error toggling like:", err);
+          });
+      },
+      handleDeleteClick: (cardId) => {
+        deleteCardPopup.open();
+        deleteCardPopup.setSubmitAction(() => {
+          api
+            .deleteCard(cardId)
+            .then(() => {
+              card.removeCard();
+              deleteCardPopup.close();
+            })
+            .catch((err) => console.error("Error deleting card:", err));
+        });
+      },
+    }
+  );
   return card.generateCard();
 }
 
-// Section instance to render cards
+function handleProfileEditSubmit(data) {
+  profileEditPopup.setLoadingState(true);
+  api
+    .updateUserProfile({ name: data.title, about: data.description })
+    .then((updatedUser) => {
+      userInfo.setUserInfo({
+        name: updatedUser.name,
+        job: updatedUser.about,
+      });
+      profileEditPopup.close();
+    })
+    .catch((err) => console.error("Error updating profile:", err))
+    .finally(() => {
+      profileEditPopup.setLoadingState(false);
+    });
+}
+
+function handleAddCardFormSubmit(data) {
+  addCardPopup.setLoadingState(true);
+  api
+    .addCard({ name: data.title, link: data.url })
+    .then((newCard) => {
+      const cardElement = createCard(newCard);
+      section.addItem(cardElement, "prepend");
+      addCardPopup.close();
+    })
+    .catch((err) => console.error("Error adding card:", err))
+    .finally(() => {
+      addCardPopup.setLoadingState(false);
+    });
+}
+
+function handleAvatarFormSubmit(data) {
+  avatarPopup.setLoadingState(true);
+  api
+    .updateAvatar(data.avatar)
+    .then((updatedUser) => {
+      userInfo.setUserInfo({
+        name: updatedUser.name,
+        job: updatedUser.about,
+        avatar: updatedUser.avatar,
+      });
+      avatarPopup.close();
+    })
+    .catch((err) => {
+      console.error("Error updating avatar:", err);
+    })
+    .finally(() => {
+      avatarPopup.setLoadingState(false);
+    });
+}
+
+// Section for cards
 const section = new Section(
-  { items: initialCards, renderer: createCard },
+  { items: [], renderer: createCard },
   ".cards__list"
 );
 
-// Handle profile edit form submission
-function handleProfileEditSubmit(data) {
-  userInfo.setUserInfo({
-    name: data.title || "",
-    job: data.description || "",
+// Load initial data
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userInfoData, cards]) => {
+    userInfo.setUserInfo({
+      name: userInfoData.name,
+      job: userInfoData.about,
+      avatar: userInfoData.avatar,
+      _id: userInfoData._id,
+    });
+    section.renderItems(cards);
+  })
+  .catch((err) => {
+    console.error("Error loading initial data:", err);
   });
-}
 
-// Handle add card form submission
-function handleAddCardFormSubmit(data) {
-  const cardElement = createCard({ name: data.title, link: data.url });
-  section.addItem(cardElement);
-}
-
-// Event listeners for buttons
+// Event listeners
 profileEditButton.addEventListener("click", () => {
   const currentUserInfo = userInfo.getUserInfo();
+  profileTitleInput.value = currentUserInfo.name;
+  profileDescriptionInput.value = currentUserInfo.job;
   profileEditPopup.open();
-
-  // Set input values after opening the popup
-  profileEditPopup.inputList.forEach((input) => {
-    if (input.name === "title") {
-      input.value = currentUserInfo.name || "";
-    } else if (input.name === "description") {
-      input.value = currentUserInfo.job || "";
-    }
-  });
 });
 
 addNewCardButton.addEventListener("click", () => {
   addCardPopup.open();
 });
 
-// Render initial cards
-section.renderItems();
+avatarEditButton.addEventListener("click", () => {
+  avatarPopup.open();
+});
