@@ -39,7 +39,7 @@ export class Card {
 
   _setEventListeners() {
     this._likeButton.addEventListener("click", () => {
-      this._handleLikeClick(this._id);
+      this._handleLikeClick(this._id, this._isLiked);
     });
     this._cardImageEl.addEventListener("click", () => {
       this._handleImageClick(this._data);

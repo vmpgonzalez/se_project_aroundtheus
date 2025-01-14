@@ -90,8 +90,8 @@ function createCard(cardData) {
     "#card-template",
     handleImageClick,
     {
-      handleLikeClick: (cardId) => {
-        const likePromise = cardData.isLiked
+      handleLikeClick: (cardId, isCurrentlyLiked) => {
+        const likePromise = isCurrentlyLiked
           ? api.dislikeCard(cardId)
           : api.likeCard(cardId);
         likePromise

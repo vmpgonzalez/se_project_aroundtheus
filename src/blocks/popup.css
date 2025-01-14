@@ -219,4 +219,14 @@
   #edit-profile-popup-close-button {
     left: calc(100% - 27px);
   }
+
+  #delete-card-popup-close-button {
+    left: calc(100% - 27px);
+    height: 50px;
+  }
+
+  #edit-avatar-popup-close-button {
+    left: calc(100% - 27px);
+    height: 50px;
+  }
 }

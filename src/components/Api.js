@@ -8,10 +8,6 @@ export class Api {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   }
 
-  _handleError(err) {
-    console.error("Error fetching cards:", err);
-  }
-
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
@@ -26,9 +22,7 @@ export class Api {
         name: data.name,
         about: data.about,
       }),
-    })
-      .then(this._handleResponse)
-      .catch(this._handleError);
+    }).then(this._handleResponse);
   }
 
   updateAvatar(avatarUrl) {
@@ -36,17 +30,13 @@ export class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({ avatar: avatarUrl }),
-    })
-      .then(this._handleResponse)
-      .catch(this._handleError);
+    }).then(this._handleResponse);
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    })
-      .then(this._handleResponse)
-      .catch(this._handleError);
+    }).then(this._handleResponse);
   }
 
   addCard(cardData) {
@@ -57,18 +47,14 @@ export class Api {
         name: cardData.name,
         link: cardData.link,
       }),
-    })
-      .then(this._handleResponse)
-      .catch(this._handleError);
+    }).then(this._handleResponse);
   }
 
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then(this._handleResponse)
-      .catch(this._handleError);
+    }).then(this._handleResponse);
   }
 
   likeCard(cardId) {
