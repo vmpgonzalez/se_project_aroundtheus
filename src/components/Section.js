@@ -1,20 +1,27 @@
 export class Section {
-  // Constructor to initialize items and container
   constructor({ items, renderer }, containerSelector) {
-    this.items = items;
-    this.renderer = renderer;
-    this.container = document.querySelector(containerSelector);
+    this._items = items;
+    this._renderer = renderer;
+    this._container = document.querySelector(containerSelector);
   }
 
-  // Method to render all items on the page
-  renderItems() {
-    this.items.forEach((item) => {
-      this.addItem(this.renderer(item));
+  addItem(element, method = "append") {
+    if (method === "prepend") {
+      this._container.prepend(element);
+    } else {
+      this._container.append(element);
+    }
+  }
+
+  renderItems(items) {
+    this.clear();
+    items.forEach((item) => {
+      const cardElement = this._renderer(item);
+      this.addItem(cardElement, "append");
     });
   }
 
-  // Method to add a single item to the DOM
-  addItem(element) {
-    this.container.prepend(element);
+  clear() {
+    this._container.innerHTML = "";
   }
 }

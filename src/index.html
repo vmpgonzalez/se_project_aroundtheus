@@ -7,7 +7,6 @@
   </head>
   <body class="page">
     <div class="page__content">
-      <!-- Header Section -->
       <header class="header page__section">
         <img
           src="<%=require('./images/logo.svg')%>"
@@ -16,40 +15,34 @@
         />
       </header>
 
-      <!-- Main Content -->
       <main class="content">
-        <!-- Profile Section -->
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="avatar"
-            class="profile__image"
-          />
+          <div class="profile__avatar-container">
+            <img src="" alt="avatar" class="profile__image" />
+            <div class="profile__avatar-edit-icon" title="Edit Avatar"></div>
+          </div>
           <div class="profile__info">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+            <h1 class="profile__title"></h1>
             <button
               class="profile__edit-button"
               id="profile-edit-button"
               type="button"
             ></button>
-            <p class="profile__description">Explorer</p>
+            <p class="profile__description"></p>
           </div>
           <button class="profile__add-button" type="button"></button>
         </section>
 
-        <!-- Cards Section -->
         <section class="cards page__section">
           <ul class="cards__list"></ul>
         </section>
       </main>
 
-      <!-- Footer Section -->
       <footer class="footer page__section" id="contact">
         <p class="footer__copyright">&copy; 2022 Around The U.S</p>
       </footer>
     </div>
 
-    <!-- Edit Profile Popup -->
     <div class="popup" id="profile-edit-popup">
       <div class="popup__container">
         <button
@@ -92,7 +85,6 @@
       </div>
     </div>
 
-    <!-- Add Card Popup -->
     <div class="popup" id="profile-add-popup">
       <div class="popup__container">
         <button class="popup__close" id="add-card-popup-close-button"></button>
@@ -127,7 +119,47 @@
       </div>
     </div>
 
-    <!-- Image Preview Popup -->
+    <div class="popup" id="delete-card-popup">
+      <div class="popup__container">
+        <button
+          type="button"
+          class="popup__close"
+          id="delete-card-popup-close-button"
+        ></button>
+        <h2 class="popup__heading">Are you sure?</h2>
+        <form class="popup__form">
+          <button type="submit" class="popup__button popup__button_type_delete">
+            Yes
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup" id="edit-avatar-popup">
+      <div class="popup__container">
+        <button
+          type="button"
+          class="popup__close"
+          id="edit-avatar-popup-close-button"
+        ></button>
+        <h2 class="popup__heading">Change profile picture</h2>
+        <form class="popup__form" id="avatar-edit-form">
+          <label class="popup__label">
+            <input
+              type="url"
+              class="popup__input"
+              id="add-card-url-input"
+              name="avatar"
+              placeholder="Image link"
+              required
+            />
+            <span class="popup__error" id="add-card-url-input-error"></span>
+          </label>
+          <button type="submit" class="popup__button">Save</button>
+        </form>
+      </div>
+    </div>
+
     <div class="popup js-preview-popup">
       <div class="popup__container popup__container_type_preview">
         <button
@@ -139,14 +171,15 @@
       </div>
     </div>
 
-    <!-- Card Template -->
     <template id="card-template">
       <li class="card">
         <img src="" class="card__image" alt="Card Image" />
         <button type="button" class="card__delete-button"></button>
         <div class="card__description">
           <h2 class="card__text"></h2>
-          <button class="card__like-button" type="button"></button>
+          <div class="card__like-container">
+            <button class="card__like-button" type="button"></button>
+          </div>
         </div>
       </li>
     </template>

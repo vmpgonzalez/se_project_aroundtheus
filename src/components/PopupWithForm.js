@@ -6,46 +6,55 @@ export class PopupWithForm extends Popup {
     this.submitCallback = submitCallback;
     this.formElement = this.popup.querySelector(".popup__form");
     this.formValidator = formValidator;
-    this._getInputValues = this._getInputValues.bind(this);
+    this._submitButton = this.formElement.querySelector(".popup__button");
+    this._defaultButtonText = this._submitButton.textContent;
   }
 
-  // Method to collect input values from the form
-  _getInputValues() {
-    const values = {};
-    this.inputList.forEach((input) => {
-      values[input.name] = input.value;
-    });
-    return values;
-  }
-
-  // Input list
   get inputList() {
     return Array.from(this.formElement.querySelectorAll(".popup__input"));
   }
 
-  // Method to set event listeners for form interactions
+  _getInputValues() {
+    const inputValues = {};
+    const inputs = this.formElement.querySelectorAll(".popup__input");
+    inputs.forEach((input) => {
+      inputValues[input.name] = input.value;
+    });
+    return inputValues;
+  }
+
+  setLoadingState(isLoading, loadingText = "Saving...") {
+    this._submitButton.textContent = isLoading
+      ? loadingText
+      : this._defaultButtonText;
+  }
+
   setEventListeners() {
     super.setEventListeners();
-
-    // Handle form submission
     this.formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      const data = this._getInputValues();
-      this.submitCallback(data);
-      this.resetForm();
-      this.close();
+      const inputValues = this._getInputValues();
+      this.setLoadingState(true);
+      this.submitCallback(inputValues);
     });
   }
 
-  // Method to open the popup and reset button state
-  open() {
-    super.open();
-    this.formValidator.resetValidation();
-  }
-
-  // Method to reset the form
   resetForm() {
     this.formElement.reset();
-    this.formValidator.resetValidation();
+    if (this.formValidator) {
+      this.formValidator.resetValidation();
+    }
+  }
+
+  open() {
+    if (this.formValidator) {
+      this.formValidator.resetValidation();
+    }
+    super.open();
+  }
+
+  close() {
+    super.close();
+    this.resetForm();
   }
 }
